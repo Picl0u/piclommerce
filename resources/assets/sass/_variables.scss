@@ -62,4 +62,4 @@ $footer_bottom_background:$theme_color ;
 $footer_bottom_color:$header_bottom_color;
 
 // Include the differents library
-@import "../../../../../../node_modules/toastr/toastr";
+@import "../vendors/toastr/toastr";

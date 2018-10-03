@@ -2,6 +2,8 @@
 
 namespace Piclou\Piclommerce\Providers;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Piclou\Piclommerce\Http\Console\Commands\InstallPiclommerceCommand;
 use Piclou\Piclommerce\Http\Console\Commands\UnistallPiclommerceCommande;
@@ -24,9 +26,9 @@ class PiclommerceServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->mapConfig();
+        $this->mapPublishes();
         $this->mapRoutes();
         $this->mapViews();
-        $this->mapPublishes();
         $this->loadMigrations();
         $this->loadTranslations();
         $this->registerMiddleware();
@@ -41,6 +43,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        require_once __DIR__ . '/../Helpers/Helpers.php';
     }
 
     public function mapCommands()
@@ -107,9 +110,21 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function mapPublishes()
     {
+        if(file_exists(base_path('routes')."/web.php")){
+            $web_route = __DIR__ . '../../../routes/web.php';
+            if(file_exists($web_route)){
+                File::copy($web_route, base_path('routes')."/web.php");
+            }
+        }
+
         $this->publishes([
-            __DIR__ . '/../../resources' => base_path('resources'),
-            __DIR__ . '/../../config' => config_path('piclommerce'),
+            __DIR__ . '/../../resources/assets' => base_path('resources/assets/piclommerce'),
+            __DIR__ . '/../../resources/views' => base_path('resources/piclommerce/views'),
+            __DIR__ . '/../../resources/lang' => base_path('resources/piclommerce/lang'),
+            __DIR__ . '/../../config' => config_path(),
+            __DIR__ . '/../../settings' => storage_path(),
+            __DIR__ . '/../../public' => (file_exists("public"))?base_path("public"):base_path("web"),
+            __DIR__ . '/../../routes' => base_path('routes'),
         ]);
     }
 

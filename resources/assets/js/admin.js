@@ -1,6 +1,6 @@
 import "./bootstrap";
-import flatpickr from "flatpickr";
-import { French } from "flatpickr/dist/l10n/fr";
+import flatpickr from "../vendors/flatpickr/dist/flatpickr.min";
+import { French } from "../vendors/flatpickr/dist/l10n/fr";
 jQuery(document).ready(function(){
     // Navigation
     require("./components/admin/navigation");
@@ -13,11 +13,6 @@ jQuery(document).ready(function(){
     require('../vendors/datatable/pdfmake-0.1.36/pdfmake.min');
     require('../vendors/datatable/pdfmake-0.1.36/vfs_fonts');
     var dataTable = require('../vendors/datatable/DataTables-1.10.18/js/jquery.dataTables.min');
-    require('../vendors/datatable/Buttons-1.5.2/js/dataTables.buttons.min');
-    require('../vendors/datatable/Buttons-1.5.2/js/buttons.colVis.min');
-    require('../vendors/datatable/Buttons-1.5.2/js/buttons.flash.min');
-    require('../vendors/datatable/Buttons-1.5.2/js/buttons.html5.min');
-    require('../vendors/datatable/Buttons-1.5.2/js/buttons.print.min');
     require('../vendors/datatable/Responsive-2.2.2/js/dataTables.responsive.min');
     require('../vendors/datatable/Scroller-1.5.0/js/dataTables.scroller.min');
     $.fn.DataTable = dataTable;

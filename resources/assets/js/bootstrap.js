@@ -11,7 +11,7 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-window.toastr = require('toastr');
+window.toastr = require('../vendors/toastr/build/toastr.min');
 require("../vendors/kube/dist/js/kube.min");
 $K.init({
     observer: true

@@ -46,11 +46,11 @@
     "autoload": {
         "psr-4": {
             "Piclou\\Piclommerce\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helpers/Helpers.php"
+        ]
     },
-    "files": [
-        "src/Helpers/Helpers.php"
-    ],
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,

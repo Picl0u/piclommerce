@@ -2,6 +2,7 @@
 namespace Piclou\Piclommerce\Http\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
@@ -64,8 +65,8 @@ class InstallPiclommerceCommand extends Command{
         $this->table($headers, [
             ['Username / Email', $this->user->email],
             ['Password', '[hidden]'],
-            ['Back Office Login', route('admin.login')],
-            ['Front office URL', route("")],
+            //['Back Office Login', Router::url('admin.login')],
+            //['Front office URL', route("")],
             ['Documentation URL', "http://www.ikon-k.fr"],
             ['Creator', 'Piclou'],
         ]);
@@ -96,9 +97,9 @@ class InstallPiclommerceCommand extends Command{
 
     protected function preflight()
     {
-        $this->info('Initialising... (This can take a long time)');
-        $this->call('vendor:publish --provider="Artesaos\SEOTools\Providers\SEOToolsServiceProvider"');
-        $this->call('vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"');
+        $this->info('Initialising... (This can take a long time) : lot of tables...');
+        //$this->call('vendor:publish --provider="Artesaos\SEOTools\Providers\SEOToolsServiceProvider"');
+        //$this->call('vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"');
         $this->call('migrate');
     }
 
@@ -344,8 +345,14 @@ class InstallPiclommerceCommand extends Command{
         ]);
         $this->info('Seeded the default VAT !');
 
-        $setting_file = __DIR__ . '../../../../settings/settings.json';
-        Storage::copy($setting_file, 'settings.json');
+        /*$setting_file = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/settings/settings.json';
+        if(file_exists($setting_file)){
+            Storage::copy($setting_file, 'settings.json');
+            $this->info('settings.json copied in storage path !');
+        } else {
+            $this->info('settings.json not copied in storage path... Sorry');
+        }*/
+
 
     }
 

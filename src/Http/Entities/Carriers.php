@@ -4,6 +4,7 @@ namespace Piclou\Piclommerce\Http\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Piclou\Piclommerce\Helpers\Medias\HasMedias;
+use Ramsey\Uuid\Uuid;
 
 class Carriers extends Model
 {

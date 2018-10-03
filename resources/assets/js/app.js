@@ -2,7 +2,7 @@ import "./bootstrap";
 jQuery(document).ready(function(){
 
     require("../vendors/slick/slick.min");
-    require('remodal');
+    require('../vendors/remodal/remodal');
 
     // Image Background
     if (jQuery('img.img-to-background').length > 0) {
@@ -16,7 +16,7 @@ jQuery(document).ready(function(){
 
     // Delete confirm
     if(jQuery('.delete-confirm').length > 0){
-        var swal  = require('sweetalert');
+        var swal  = require('../vendors/sweetalert/dist/sweetalert.min');
         jQuery(document).on("click",'.delete-confirm',function(e){
             var $link = jQuery(this).attr('href'),
                 $infos = jQuery(this).find('.delete-infos');
