@@ -10,7 +10,7 @@
     ],
     "keywords": ["e-commerce", "ecommerce", "laravel"],
     "license": "Apache-2.0",
-    "type": "project",
+    "type": "library",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "support": {
