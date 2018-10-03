@@ -17,7 +17,7 @@
         "email": "herbaut_v@yahoo.com"
     },
     "require": {
-        "php": "^7.0",
+        "php": ">=5.3.0",
         "anlutro/l4-settings": "^0.6.0",
         "atayahmet/laravel-nestable": "^0.8.7",
         "artesaos/seotools": "^0.12.0",
