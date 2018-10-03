@@ -1,0 +1,59 @@
+// Kube
+@import "../vendors/kube/src/sass/kube";
+// Font awesomme
+@import "../vendors/font-awesome/scss/font-awesome";
+// Datatable
+@import "../vendors/datatable/datatables";
+// Remodal
+@import "../vendors/remodal/remodal.css";
+@import "../vendors/remodal/remodal-default-theme.css";
+
+
+// Select2
+@import '../vendors/select2/dist/css/select2.min.css';
+// Flapickr
+@import '../vendors/flatpickr/dist/ie.css';
+@import '../vendors/flatpickr/dist/flatpickr.min.css';
+.flatpickr-weekdaycontainer{
+  width:100%;
+  flex: 1;
+  display: flex
+}
+// Variables
+@import "./variables";
+.remodal{
+  max-width:$container_size;
+  form{
+    text-align:left;
+  }
+}
+// Default
+body{
+  background-color:$body_admin_background;
+  font-family: $font_family_default;
+  font-size:1rem;
+}
+h1,h2,h3,h4,h5,h6{;
+  font-family: $font_family_title;
+}
+a{
+  text-decoration:none;
+  color:inherit;
+}
+a:hover{
+  opacity:0.8;
+  color:inherit;
+}
+.clear{
+  clear:both;
+}
+.l-container{
+  max-width:$container_size;
+  width:96%;
+  margin:0 auto 0 auto;
+  position:relative;
+}
+// Login page
+@import "./components/admin/login";
+// Administration
+@import "./components/admin/default";

@@ -1,0 +1,47 @@
+.contact-section{
+  padding:35px 0 35px 0;
+  form{
+    max-width:500px;
+    margin:0 auto;
+    .form-item{
+      margin-bottom:15px;
+      label{
+
+      }
+      input, select, textarea{
+        height:30px;
+        color:$product_color;
+        border:1px solid $input_border;
+        border-radius:0;
+        background-color: $input_background;
+      }
+      textarea{
+        height:200px;
+      }
+    }
+    button {
+      display:block;
+      margin:15px auto 0 auto;
+      background-color:$theme_color;
+      color:#FFF;
+      width: 100%;
+      max-width:370px;
+      height:40px;
+      line-height:40px;
+      text-align:center;
+      font-size:1.375rem;
+      padding:0;
+      font-family:$font_family_default;
+      text-transform:uppercase;
+      transition-duration:$duration_transition;
+      border-radius:0;
+      svg{
+        display:inline-block;
+        margin-right:10px;
+      }
+    }
+    button:hover{
+      opacity:0.8;
+    }
+  }
+}

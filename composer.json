@@ -1,0 +1,55 @@
+{
+    "name": "piclou/piclommerce",
+    "description": "Ecommerce solution for Laravel",
+    "authors": [
+        {
+            "name": "Picl0u",
+            "email": "vincent@ikon-k.fr"
+        }
+    ],
+    "keywords": ["e-commerce", "ecommerce", "laravel"],
+    "license": "MIT",
+    "type": "project",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "anlutro/l4-settings": "^0.6.0",
+        "atayahmet/laravel-nestable": "^0.8.7",
+        "artesaos/seotools": "^0.12.0",
+        "consoletvs/charts": "5.*",
+        "cyrildewit/eloquent-viewable": "^2.4",
+        "dompdf/dompdf": "^0.8.2",
+        "fzaninotto/faker": "^1.7",
+        "gloudemans/shoppingcart": "^2.5",
+        "intervention/image": "^2.4",
+        "maatwebsite/excel": "~2.1.0",
+        "monext/payline-sdk": "^4.53",
+        "netshell/paypal": "dev-master",
+        "payline/sdk": "^4.45",
+        "spatie/laravel-permission": "^2.9",
+        "webpatser/laravel-countries": "^1.5.4",
+        "webpatser/laravel-uuid": "^3.0",
+        "yajra/laravel-datatables-oracle": "~8.0",
+        "zanysoft/laravel-zip": "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Piclou\\Piclommerce\\Providers\\PiclommerceServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Piclou\\Piclommerce\\": "src/"
+        }
+    },
+    "files": [
+        "src/Helpers/Helpers.php"
+    ],
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}

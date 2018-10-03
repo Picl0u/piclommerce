@@ -1,0 +1,114 @@
+{
+  "_from": "flatpickr",
+  "_id": "flatpickr@4.3.2",
+  "_inBundle": false,
+  "_integrity": "sha1-akdwQ8B17zbD/1T620m5NqZNY18=",
+  "_location": "/flatpickr",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "flatpickr",
+    "name": "flatpickr",
+    "escapedName": "flatpickr",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/flatpickr/-/flatpickr-4.3.2.tgz",
+  "_shasum": "6a477043c075ef36c3ff54fadb49b936a64d635f",
+  "_spec": "flatpickr",
+  "_where": "D:\\Programmes\\wamp64\\www\\Developpement\\ik-commerce",
+  "author": {
+    "name": "Gregory",
+    "email": "gregory.mkv@gmail.com"
+  },
+  "browserslist": [
+    "ie >= 9",
+    "last 2 versions",
+    "safari >= 7"
+  ],
+  "bugs": {
+    "url": "https://github.com/chmln/flatpickr/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "A lightweight, powerful javascript datetime picker",
+  "devDependencies": {
+    "@types/acorn": "^4.0.3",
+    "@types/chokidar": "^1.7.2",
+    "@types/glob": "^5.0.35",
+    "@types/jest": "^22.1.1",
+    "@types/jquery": "^3.3.0",
+    "@types/node": "^9.4.0",
+    "@types/stylus": "^0.48.29",
+    "@types/uglify-js": "^2.6.30",
+    "autoprefixer-stylus": "latest",
+    "chokidar": "2.0.0",
+    "coveralls": "^3.0.0",
+    "glob": "latest",
+    "husky": "^0.14.3",
+    "jest": "22.1.4",
+    "lint-staged": "^6.1.0",
+    "magic-string": "^0.22.4",
+    "npm-run-all": "^4.1.1",
+    "prettier": "^1.10.2",
+    "rollup": "^0.55.3",
+    "rollup-plugin-livereload": "^0.6.0",
+    "rollup-plugin-serve": "^0.4.2",
+    "rollup-plugin-typescript2": "github:ezolenko/rollup-plugin-typescript2",
+    "rtlcss": "^2.2.1",
+    "source-map": "^0.7.0",
+    "stylus": "latest",
+    "ts-jest": "22.0.3",
+    "ts-node": "^4.1.0",
+    "typescript": "2.6.2",
+    "uglify-js": "^3.3.9"
+  },
+  "homepage": "https://chmln.github.io/flatpickr",
+  "keywords": [
+    "javascript",
+    "datetimepicker",
+    "calendar",
+    "date",
+    "time",
+    "picker",
+    "lightweight"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "prettier --trailing-comma es5 --write",
+      "git add"
+    ]
+  },
+  "main": "dist/flatpickr.js",
+  "name": "flatpickr",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chmln/flatpickr.git"
+  },
+  "scripts": {
+    "build": "run-s build:pre build:build build:post",
+    "build:build": "ts-node build.ts",
+    "build:post": "rm -f dist/index.d.ts",
+    "build:pre": "mkdir -p dist/themes",
+    "coveralls": "jest --config .jest.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "precommit": "lint-staged",
+    "prepublishOnly": "npm run build && npm test",
+    "rollup:build": "rollup -c",
+    "rollup:start": "rollup -w -c",
+    "start": "npm run build:build -- --dev",
+    "test": "run-s test:typecheck test:unit",
+    "test:typecheck": "tsc -p ./ --noEmit",
+    "test:unit": "jest --config .jest.json"
+  },
+  "style": "dist/flatpickr.css",
+  "types": "./index.d.ts",
+  "version": "4.3.2"
+}

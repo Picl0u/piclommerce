@@ -1,0 +1,205 @@
+.order-process{
+  padding:50px 0 50px 0;
+  .cart-title{
+    text-align:center;
+    font-size:1.125rem;
+    color:$theme_color;
+    font-family:$font_family_title;
+    font-weight:bold;
+  }
+  .table-cart{
+    padding:20px;
+    border:1px solid $border_color;
+    box-shadow: 0 1px 3px $front_shadow_color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    .table-row{
+      padding:5px 0;
+    }
+    .cart-price{
+      color:$theme_color;
+      font-weight:bold;
+    }
+    .tfoot{
+      padding:10px 0;
+    }
+  }
+  .process-container{
+    padding:20px;
+    border:1px solid $border_color;
+    box-shadow: 0 1px 3px $front_shadow_color;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    .timeline{
+      border-top:1px solid $product_color;
+      padding:7px 0 7px 0;
+    }
+    .timeline.check{
+      border-bottom:1px solid $product_color;
+    }
+    h1, h2, h3, h4, h5, h6{
+      font-size:1.250rem;
+      color:$theme_color;
+    }
+    form{
+      .form-item{
+        margin-bottom:15px;
+        label{
+
+        }
+        input, select{
+          height:30px;
+          color:$product_color;
+          border:1px solid $input_border;
+          border-radius:0;
+          background-color: $input_background;
+        }
+      }
+      button {
+        display:block;
+        margin:15px auto 0 auto;
+        background-color:$theme_color;
+        color:#FFF;
+        width: 100%;
+        max-width:370px;
+        height:40px;
+        line-height:40px;
+        text-align:center;
+        font-size:1.375rem;
+        padding:0;
+        font-family:$font_family_default;
+        text-transform:uppercase;
+        transition-duration:$duration_transition;
+        border-radius:0;
+        svg{
+          display:inline-block;
+          margin-right:10px;
+        }
+      }
+      button:hover{
+        opacity:0.8;
+      }
+    }
+    .forgot-password{
+      text-align:center;
+      padding:20px 0 0 0;
+      a{
+        transition-duration:$duration_transition;
+      }
+      a:hover{
+        color:$theme_color;
+      }
+    }
+    .tabs{
+      ul{
+        border-bottom:1px solid #bcbec0;
+      }
+      li{
+        text-transform:uppercase;
+        font-family:$font_family_other;
+        margin-left:10px;
+        background-color:$border_color;
+        a{
+          color:#58595b;
+        }
+      }
+      li.active {
+        a {
+          background-color: $theme_color;
+          color: #FFF;
+        }
+      }
+      li:first-child{
+        margin-left:0;
+      }
+    }
+    .addresses-choose{
+      label{
+        padding:10px;
+        border:1px solid $border_color;
+      }
+    }
+    .add-new-address{
+      display:none;
+    }
+    .new-address-control{
+      text-align:center;
+      padding:20px 0 ;
+      a {
+        display: inline-block;
+        padding: 0 10px;
+        background-color: $theme_color;
+        color: #FFF;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 1.125rem;
+        font-family: $font_family_default;
+        text-transform: uppercase;
+        transition-duration: $duration_transition;
+        border-radius: 0;
+        svg {
+          display: inline-block;
+          margin-right: 10px;
+        }
+      }
+      a:hover{
+        opacity:0.8;
+      }
+    }
+    .carriers{
+      .carrier{
+        label.checkbox{
+          display:flex;
+          align-items:center;
+          padding:20px;
+          margin:0 0 20px 0;
+          border:1px solid $border_color;
+          input{
+            margin:0 10px 0 0;
+          }
+          img{
+            max-width:100px;
+            margin:0 10px 0 0;
+          }
+          span{
+            display:block;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width:768px) {
+  .order-process .process-container .tabs li{
+    margin-left:0;
+  }
+  .order-process {
+    .table-cart {
+      text-align:center;
+      .row .col{
+        margin-bottom:5px;
+      }
+      .table-row {
+        padding:0;
+      }
+      .cart-price {
+      }
+      .table-line{
+        margin-bottom:10px;
+        border-bottom:1px solid $border_color;
+      }
+      .row .col.tfoot {
+        text-align:center;
+        margin-bottom:5px;
+        padding:0;
+      }
+    }
+  }
+  .order-process .process-container .carriers .carrier label.checkbox span{
+    text-align:center;
+  }
+  .order-process .process-container .carriers .carrier label.checkbox span strong{
+    display:block;
+  }
+}
