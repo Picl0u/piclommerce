@@ -78,11 +78,11 @@
                 <label for="form-categories">{{ __('piclommerce::admin.shop_product_categories') }}</label>
                 <div class="checkboxes-tree">
                     <?php
-                        $tree = new \Piclou\Piclommerce\Helpers\TreeCheckboxes('categories','shop_category_id', $data->ProductsHasCategories);
-                        foreach($categories as $category) {
-                            $tree->addRow($category['id'], (empty($category['parent_id']))?null:$category['parent_id'], $category['name']);
-                        }
-                        echo $tree->generateList();
+                    $tree = new \Piclou\Piclommerce\Helpers\TreeCheckboxes('categories','shop_category_id', $data->ProductsHasCategories);
+                    foreach($categories as $category) {
+                        $tree->addRow($category['id'], (empty($category['parent_id']))?null:$category['parent_id'], $category['name']);
+                    }
+                    echo $tree->generateList();
                     ?>
                 </div>
             </div>
@@ -291,43 +291,38 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @if(!$data->image)
-                                <tr>
-                                    <td colspan="5">{{ __('piclommerce::admin.no_data') }}</td>
-                                </tr>
-                            @else
-                                @php $medias = $data->getMedias("image"); @endphp
-                                <tr>
-                                    <td data-label="{{ __('piclommerce::admin.medias_image') }}">
-                                        <img src="{{ resizeImage($medias['target_path'], 30 ,30) }}"
-                                             alt="{{ $medias['alt'] }}"
-                                             class="remodalImg"
-                                             data-src="/{{ $medias['target_path'] }}"
-                                        >
-                                    </td>
-                                    <td data-label="{{ __('piclommerce::admin.medias_title') }}">
-                                        <input type="text" name="medias_alt" value="{{ $medias['alt'] }}">
-                                    </td>
-                                    <td data-label="{{ __('piclommerce::admin.medias_description') }}">
-                                        <input type="text" name="medias_description" value="{{ $medias['description'] }}">
-                                    </td>
-                                    <td data-label="{{ __('piclommerce::admin.medias_type') }}">
-                                        {{ $medias['file_type'] }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.shop.products.image.update',['uuid' => $data['uuid']]) }}"
-                                           class="table-button edit-media"
-                                        >
-                                            <i class="fa fa-floppy-o"></i>
-                                        </a>
-                                        <a href="{{ route('admin.shop.products.image.delete',['uuid' => $data['uuid']]) }}"
-                                           class="table-button delete-button confirm-alert"
-                                        >
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endif
+                        @if(!$data->image)
+                            <tr>
+                                <td colspan="5">{{ __('piclommerce::admin.no_data') }}</td>
+                            </tr>
+                        @else
+                            @php $medias = $data->getMedias("image"); @endphp
+                            <tr>
+                                <td data-label="{{ __('piclommerce::admin.medias_image') }}">
+                                    <img src="{{ resizeImage($medias['target_path'], 30 ,30) }}"
+                                         alt="{{ $medias['alt'] }}"
+                                         class="remodalImg"
+                                         data-src="/{{ $medias['target_path'] }}"
+                                    >
+                                </td>
+                                <td data-label="{{ __('piclommerce::admin.medias_title') }}">
+                                    <input type="text" name="medias_alt" value="{{ $medias['alt'] }}">
+                                </td>
+                                <td data-label="{{ __('piclommerce::admin.medias_description') }}">
+                                    <input type="text" name="medias_description" value="{{ $medias['description'] }}">
+                                </td>
+                                <td data-label="{{ __('piclommerce::admin.medias_type') }}">
+                                    {{ $medias['file_type'] }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.shop.products.image.update',['uuid' => $data['uuid']]) }}"
+                                       class="table-button edit-media"
+                                    >
+                                        <i class="fa fa-floppy-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -369,36 +364,36 @@
                             </tr>
                         @else
                             @foreach($data->getMedias("imageList") as $medias)
-                            <tr>
-                                <td data-label="{{ __('piclommerce::admin.medias_image') }}">
-                                    <img src="{{ resizeImage($medias['target_path'], 30 ,30) }}"
-                                         alt="{{ $medias['alt'] }}"
-                                         class="remodalImg"
-                                         data-src="/{{ $medias['target_path'] }}"
-                                    >
-                                </td>
-                                <td data-label="{{ __('piclommerce::admin.medias_title') }}">
-                                    <input type="text" name="medias_alt" value="{{ $medias['alt'] }}">
-                                </td>
-                                <td data-label="{{ __('piclommerce::admin.medias_description') }}">
-                                    <input type="text" name="medias_description" value="{{ $medias['description'] }}">
-                                </td>
-                                <td data-label="{{ __('piclommerce::admin.medias_type') }}">
-                                    {{ $medias['file_type'] }}
-                                </td>
-                                <td>
-                                    <a href="{{ route('admin.shop.products.imagelist.update',['uuid' => $data['uuid'], "image" => $medias['uuid']]) }}"
-                                       class="table-button edit-media"
-                                    >
-                                        <i class="fa fa-floppy-o"></i>
-                                    </a>
-                                    <a href="{{ route('admin.shop.products.imagelist.delete',['uuid' => $data['uuid'], "image" => $medias['uuid']]) }}"
-                                       class="table-button delete-button confirm-alert"
-                                    >
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td data-label="{{ __('piclommerce::admin.medias_image') }}">
+                                        <img src="{{ resizeImage($medias['target_path'], 30 ,30) }}"
+                                             alt="{{ $medias['alt'] }}"
+                                             class="remodalImg"
+                                             data-src="/{{ $medias['target_path'] }}"
+                                        >
+                                    </td>
+                                    <td data-label="{{ __('piclommerce::admin.medias_title') }}">
+                                        <input type="text" name="medias_alt" value="{{ $medias['alt'] }}">
+                                    </td>
+                                    <td data-label="{{ __('piclommerce::admin.medias_description') }}">
+                                        <input type="text" name="medias_description" value="{{ $medias['description'] }}">
+                                    </td>
+                                    <td data-label="{{ __('piclommerce::admin.medias_type') }}">
+                                        {{ $medias['file_type'] }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.shop.products.imagelist.update',['uuid' => $data['uuid'], "image" => $medias['uuid']]) }}"
+                                           class="table-button edit-media"
+                                        >
+                                            <i class="fa fa-floppy-o"></i>
+                                        </a>
+                                        <a href="{{ route('admin.shop.products.imagelist.delete',['uuid' => $data['uuid'], "image" => $medias['uuid']]) }}"
+                                           class="table-button delete-button confirm-alert"
+                                        >
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             @endforeach
                         @endif
                         </tbody>
