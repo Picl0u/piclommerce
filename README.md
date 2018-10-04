@@ -99,8 +99,6 @@ puis `composer require netshell/paypal dev-master`
  mix.sass(resourcesAssets + 'sass/admin.scss', destCss).options({
      processCssUrls: false,
      outputStyle: 'compressed'
- });
-
- `
+ });`
  
  9. ENJOY !
