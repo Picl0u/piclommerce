@@ -17,7 +17,7 @@ class PiclommerceServiceProvider extends ServiceProvider
 {
 
     /* Controller's namespace */
-    private $controllerNamespace = 'Piclou\Piclommerce\Http\Controllers\\';
+    private $controllerNamespace = 'App\Http\Controllers\Piclommerce\\';
 
     /**
      * Bootstrap the application services.
@@ -33,7 +33,7 @@ class PiclommerceServiceProvider extends ServiceProvider
         $this->loadMigrations();
         $this->loadTranslations();
         $this->registerMiddleware();
-        $this->mapControllers();
+        //$this->mapControllers();
         $this->mapCommands();
     }
 
@@ -102,7 +102,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function mapViews()
     {
-        $this->loadViewsFrom( base_path('resources/piclommerce/views'),'piclommerce');
+        $this->loadViewsFrom(base_path('resources/piclommerce/views'),'piclommerce');
     }
 
     /**
@@ -133,7 +133,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function loadTranslations()
     {
-        $this->loadTranslationsFrom( base_path('resources/piclommerce/langs'), 'piclommerce');
+        $this->loadTranslationsFrom(base_path('resources/piclommerce/lang'), 'piclommerce');
     }
 
     /**
