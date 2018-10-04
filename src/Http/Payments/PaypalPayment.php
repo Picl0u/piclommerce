@@ -24,10 +24,10 @@ class PaypalPayment implements PaymentInterface
 
         $redirectUrls = PayPal:: RedirectUrls();
         $redirectUrls->setReturnUrl(
-            action('\Piclou\Piclommerce\Http\Controllers\ShoppingCartController@orderReturn')
+            action('\App\Http\Controllers\Piclommerce\ShoppingCartController@orderReturn')
         );
         $redirectUrls->setCancelUrl(
-            action('\Piclou\Piclommerce\Http\Controllers\ShoppingCartController@orderCancel')
+            action('\App\Http\Controllers\Piclommerce\ShoppingCartController@orderCancel')
         );
 
         $payment = PayPal::Payment();

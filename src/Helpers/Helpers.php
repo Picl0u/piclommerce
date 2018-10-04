@@ -375,7 +375,7 @@ function checkCoupon(): array
     $coupon = [];
     $total = Cart::instance('shopping')->total(2,".","");
     if (session()->get('coupons') ){
-        $coupon = (new \Piclou\Piclommerce\Http\Controllers\ShoppingCartController())
+        $coupon = (new \App\Http\Controllers\Piclommerce\ShoppingCartController())
             ->checkCoupon(session()->get('coupons')['coupon_id'],$total);
     }
     return $coupon;
