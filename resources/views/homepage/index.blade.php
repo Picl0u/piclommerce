@@ -248,7 +248,7 @@
                                 <div class="content-image">
                                     @php $medias = $content->getMedias("image"); @endphp
                                     @if($medias)
-                                        <img src="{{ resizeImage($medias['target_path'], null, 280) }}"
+                                        <img src="{{ $medias['target_path'] }}"
                                              alt="{{ $medias['alt'] }}"
                                              {!! ($medias['description'])?'title="'.$medias['description'].'"':'' !!}
                                         >
