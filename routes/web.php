@@ -3,7 +3,7 @@ use \Piclou\Piclommerce\Helpers\CustomRoute;
 Route::group([
     'middleware' => ['web','piclommerce.lang'],
     'prefix' => '',
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers'
+    'namespace' => 'Piclommerce'
 ], function() {
     // Auth
     CustomRoute::auth();
@@ -32,7 +32,7 @@ Route::group([
 // Shop
 Route::group([
     'middleware' => ['web','piclommerce.lang'],
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers',
+    'namespace' => 'Piclommerce',
     'prefix' => "boutique"
 ], function() {
     // Products - List
@@ -57,7 +57,7 @@ Route::group([
 // Shopping Cart
 Route::group([
     'middleware' => ['web','piclommerce.lang'],
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers',
+    'namespace' => 'Piclommerce',
     'prefix' => 'panier',
 ], function() {
     /* Ajouter un produit */
@@ -82,7 +82,7 @@ Route::group([
 // Orders
 Route::group([
     'middleware' => ['web','piclommerce.lang'],
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers',
+    'namespace' => 'Piclommerce',
     'prefix' => 'commande',
 ], function() {
 
@@ -126,7 +126,7 @@ Route::group([
 // Users
 Route::group([
     'middleware' => ['web','piclommerce.user','piclommerce.lang'],
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers',
+    'namespace' => 'Piclommerce',
     'prefix' => 'compte',
 ], function() {
 

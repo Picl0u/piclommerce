@@ -1,5 +1,5 @@
 <?php
-namespace Piclou\Piclommerce\Http\Controllers;
+namespace App\Http\Controllers\Piclommerce;
 
 use Piclou\Piclommerce\Http\Entities\Newsletters;
 use Illuminate\Routing\Controller;

@@ -1,5 +1,5 @@
 <?php
-namespace Piclou\Piclommerce\Http\Controllers;
+namespace App\Http\Controllers\Piclommerce;
 
 use App\Http\Controllers\Controller;
 use Artesaos\SEOTools\Facades\SEOMeta;

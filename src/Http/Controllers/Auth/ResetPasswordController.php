@@ -1,6 +1,6 @@
 <?php
 
-namespace Piclou\Piclommerce\Http\Controllers\Auth;
+namespace App\Http\Controllers\Piclommerce\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

@@ -4,7 +4,7 @@ use \Piclou\Piclommerce\Helpers\CustomRoute;
 Route::group([
     'middleware' => ['web','piclommerce.admin'],
     'prefix' => config("piclommerce.adminUrl"),
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers\Admin'
+    'namespace' => 'Piclommerce\Admin'
 ], function() {
 
     // Dashboard
@@ -200,7 +200,7 @@ Route::group([
 Route::group([
     'middleware' => 'web',
     'prefix' => config("piclommerce.adminUrl"),
-    'namespace' => '\Piclou\Piclommerce\Http\Controllers\Admin'
+    'namespace' => 'Piclommerce\Admin'
 ], function() {
 
     // Login

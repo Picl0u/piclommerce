@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Piclou\Piclommerce\Http\Console\Commands\InstallPiclommerceCommand;
+use Piclou\Piclommerce\Http\Console\Commands\PublishePiclommerceCommande;
 use Piclou\Piclommerce\Http\Console\Commands\UnistallPiclommerceCommande;
 use Piclou\Piclommerce\Http\Middleware\AdministrationAccess;
 use Piclou\Piclommerce\Http\Middleware\LangMiddleware;
@@ -25,9 +26,9 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mapConfig();
-        $this->mapPublishes();
-        $this->mapRoutes();
+        //$this->mapRoutes();
+        //$this->mapConfig();
+        //$this->mapPublishes();
         $this->mapViews();
         $this->loadMigrations();
         $this->loadTranslations();
@@ -51,7 +52,8 @@ class PiclommerceServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallPiclommerceCommand::class,
-                UnistallPiclommerceCommande::class,
+                //UnistallPiclommerceCommande::class,
+                PublishePiclommerceCommande::class,
             ]);
         }
     }
@@ -100,7 +102,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function mapViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'piclommerce');
+        $this->loadViewsFrom( base_path('resources/piclommerce/views'),'piclommerce');
     }
 
     /**
@@ -110,22 +112,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function mapPublishes()
     {
-        if(file_exists(base_path('routes')."/web.php")){
-            $web_route = __DIR__ . '../../../routes/web.php';
-            if(file_exists($web_route)){
-                File::copy($web_route, base_path('routes')."/web.php");
-            }
-        }
 
-        $this->publishes([
-            __DIR__ . '/../../resources/assets' => base_path('resources/assets/piclommerce'),
-            __DIR__ . '/../../resources/views' => base_path('resources/piclommerce/views'),
-            __DIR__ . '/../../resources/lang' => base_path('resources/piclommerce/lang'),
-            __DIR__ . '/../../config' => config_path(),
-            __DIR__ . '/../../settings' => storage_path(),
-            __DIR__ . '/../../public' => (file_exists("public"))?base_path("public"):base_path("web"),
-            __DIR__ . '/../../routes' => base_path('routes'),
-        ]);
     }
 
     /**
@@ -146,7 +133,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function loadTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'piclommerce');
+        $this->loadTranslationsFrom( base_path('resources/piclommerce/langs'), 'piclommerce');
     }
 
     /**

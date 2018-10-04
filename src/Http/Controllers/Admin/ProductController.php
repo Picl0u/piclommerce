@@ -1,5 +1,5 @@
 <?php
-namespace Piclou\Piclommerce\Http\Controllers\Admin;
+namespace App\Http\Controllers\Piclommerce\Admin;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;

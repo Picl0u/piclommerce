@@ -1,6 +1,6 @@
 <?php
 
-namespace Piclou\Piclommerce\Http\Controllers;
+namespace App\Http\Controllers\Piclommerce;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;

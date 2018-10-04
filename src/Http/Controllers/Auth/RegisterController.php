@@ -1,6 +1,6 @@
 <?php
 
-namespace Piclou\Piclommerce\Http\Controllers\Auth;
+namespace App\Http\Controllers\Piclommerce\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
