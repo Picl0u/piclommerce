@@ -166,8 +166,10 @@ class ContentController extends Controller
         if($request->hasFile('image')){
             $medias = $content->getMedias("image");
             $content->uploadImage('image', 'pages', $request->image);
-            if(file_exists($medias['target_path'])) {
-                unlink($medias['target_path']);
+            if($medias){
+                if(file_exists($medias['target_path'])) {
+                    unlink($medias['target_path']);
+                }
             }
         }
         $content
