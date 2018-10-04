@@ -383,7 +383,7 @@ class InstallPiclommerceCommand extends Command{
 
         $views_dir = __DIR__ . '../../../../../resources/views';
         if(file_exists($views_dir)) {
-            File::copyDirectory($lang_dir, base_path('resources/piclommerce/views'));
+            File::copyDirectory($views_dir, base_path('resources/piclommerce/views'));
             $this->line("Views folder copied ");
         }
 
