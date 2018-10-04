@@ -26,7 +26,7 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //$this->mapRoutes();
+        $this->mapRoutes();
         //$this->mapConfig();
         //$this->mapPublishes();
         $this->mapViews();
@@ -77,8 +77,8 @@ class PiclommerceServiceProvider extends ServiceProvider
      */
     protected function mapRoutes()
     {
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/web.php');
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/admin.php');
+        $this->loadRoutesFrom(base_path("routes/web.php"));
+        $this->loadRoutesFrom(base_path("routes/admin.php"));
     }
 
     /**

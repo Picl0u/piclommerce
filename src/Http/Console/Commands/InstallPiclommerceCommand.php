@@ -4,7 +4,7 @@ namespace Piclou\Piclommerce\Http\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Piclou\Piclommerce\Http\Entities\Carriers;
 use Piclou\Piclommerce\Http\Entities\Content;
@@ -101,6 +101,12 @@ class InstallPiclommerceCommand extends Command{
         $this->info('Initialising... (This can take a long time) : lot of tables...');
         //$this->call('vendor:publish --provider="Artesaos\SEOTools\Providers\SEOToolsServiceProvider"');
         //$this->call('vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"');
+
+        $config_file = __DIR__ . '../../../../../config/piclommerce.php';
+        if(file_exists($config_file)) {
+            File::copy($config_file, config_path("piclommerce.php"));
+            $this->line("Config file copied ");
+        }
         $this->call('migrate');
     }
 
