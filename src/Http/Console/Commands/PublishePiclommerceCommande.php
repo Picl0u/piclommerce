@@ -85,6 +85,12 @@ class PublishePiclommerceCommande extends Command
             $this->line("Public folder copied ");
         }
 
+        $vendor_dir = __DIR__ . '../../../../../resources/assets/vendors';
+        if(file_exists($vendor_dir)) {
+            File::copyDirectory($vendor_dir, (file_exists("public"))?base_path("public"):base_path("web")."/vendors");
+            $this->line("Vendors folder copied ");
+        }
+
         $route_dir = __DIR__ . '../../../../../routes';
         if(file_exists($route_dir)) {
             File::copyDirectory($route_dir, base_path('routes'));

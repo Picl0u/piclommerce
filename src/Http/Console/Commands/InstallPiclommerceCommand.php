@@ -101,7 +101,6 @@ class InstallPiclommerceCommand extends Command{
         $this->info('Initialising... (This can take a long time) : lot of tables...');
         //$this->call('vendor:publish --provider="Artesaos\SEOTools\Providers\SEOToolsServiceProvider"');
         //$this->call('vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider"');
-
         $config_file = __DIR__ . '../../../../../config/piclommerce.php';
         if(file_exists($config_file)) {
             File::copy($config_file, config_path("piclommerce.php"));
@@ -409,6 +408,12 @@ class InstallPiclommerceCommand extends Command{
         if(file_exists($public_dir)) {
             File::copyDirectory($public_dir, (file_exists("public"))?base_path("public"):base_path("web"));
             $this->line("Public folder copied ");
+        }
+
+        $vendor_dir = __DIR__ . '../../../../../resources/assets/vendors';
+        if(file_exists($vendor_dir)) {
+            File::copyDirectory($vendor_dir, (file_exists("public"))?base_path("public"):base_path("web")."/vendors");
+            $this->line("Vendors folder copied ");
         }
 
         $route_dir = __DIR__ . '../../../../../routes';

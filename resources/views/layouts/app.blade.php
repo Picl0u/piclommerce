@@ -85,12 +85,12 @@
                         <div class="is-navbar is-hidden-mobile" id="main-navigation">
                             <nav class="main-navigation">
                                 <ul>
-                                    <li class="is-active">
+                                    <li class="{{ (Route::current()->getName() == 'homepage')?'is-active':'' }}">
                                         <a href="/">
                                             {{ __("piclommerce::web.navigation_home") }}
                                         </a>
                                     </li>
-                                    <li class="shop-menu-parent">
+                                    <li class="shop-menu-parent {{ (Route::current()->getName() == 'product.list')?'is-active':'' }}">
                                         <a href="#">
                                             {{ __("piclommerce::web.navigation_shop") }}
                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -119,13 +119,13 @@
                                             </div>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li class="{{ (Route::current()->getName() == 'product.flash')?'is-active':'' }}">
                                         <a href="{{ route('product.flash') }}">
                                             {{ __("piclommerce::web.navigation_flash") }}
                                         </a>
                                     </li>
                                     {!! navigationContents() !!}
-                                    <li>
+                                    <li class="{{ (Route::current()->getName() == 'contact.index')?'is-active':'' }}">
                                         <a href="{{ route('contact.index') }}">
                                             {{ __("piclommerce::web.navigation_contact") }}
                                         </a>

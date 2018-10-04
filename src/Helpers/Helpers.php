@@ -267,7 +267,9 @@ function navigationContents(): string
         ->get();
     $html = '';
     if(count($contents) > 0) {
-        $html .=' <li class="is-menu-parent">';
+        $active = '';
+        if(Route::current()->getName() == 'content.index'){ $active = 'is-active'; }
+        $html .=' <li class="is-menu-parent '.$active.'">';
         $html .='<a href="#">';
         $html .= __("piclommerce::web.informations");
         $html .=' <i class="fa fa-caret-down" aria-hidden="true"></i>';
