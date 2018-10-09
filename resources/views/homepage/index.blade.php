@@ -12,11 +12,13 @@
             @foreach($sliders as $slide)
                 @php $medias = $slide->getMedias("image"); @endphp
                 <div class="slide">
+                    @if($medias)
                     <img
                         src="/{{ $medias['target_path'] }}"
                         alt="{{ $medias['alt'] }}"
                         class="img-to-background"
                     >
+                    @endif
                     <div class="slide-description {{ $slide->position }}">
                         <div class="content">
                             {!! $slide->description !!}
