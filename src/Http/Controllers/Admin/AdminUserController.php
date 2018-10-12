@@ -124,7 +124,7 @@ class AdminUserController extends Controller
      */
     public function update(UserUpdateRequest $request, string $uuid)
     {
-        if(!config('piclommerce.demo')) {
+        if(config('piclommerce.demo')) {
             session()->flash('error',__("piclommerce::admin.demo_error"));
             return redirect()->route($this->route . 'index');
         }
@@ -144,7 +144,7 @@ class AdminUserController extends Controller
         ];
 
         if(!empty($request->password)) {
-            $update['password'] = bcrypt($this->password);
+            $update['password'] = bcrypt($request->password);
         }
         User::where('id', $user->id)->update($update);
         $user->removeRole($role->guard_name);
@@ -161,7 +161,7 @@ class AdminUserController extends Controller
      */
     public function destroy(string $uuid)
     {
-        if(!config('piclommerce.demo')) {
+        if(config('piclommerce.demo')) {
             session()->flash('error',__("piclommerce::admin.demo_error"));
             return redirect()->route($this->route . 'index');
         }
