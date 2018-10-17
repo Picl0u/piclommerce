@@ -94,14 +94,30 @@ class ShoppingCartController extends Controller
         $percent = 1+($vat->percent/100);
 
         $price = $product->price_ttc;
-        if(
-            (!empty($product->reduce_price) && !is_null($product->reduce_price)) ||
-            (!empty($product->reduce_percent) && !is_null($product->reduce_percent))
-        ) {
-            if(!empty($product->reduce_price) && !is_null($product->reduce_price)){
-                $price = $product->price_ttc - $product->reduce_price;
-            }else{
-                $price = $product->price_ttc - ($product->price_ttc * (($product->reduce_percent/100)));
+        if(is_null($product->reduce_date_begin) || $product->reduce_date_begin == '0000-00-00 00:00:00') {
+
+            if(
+                (!empty($product->reduce_price) && !is_null($product->reduce_price)) ||
+                (!empty($product->reduce_percent) && !is_null($product->reduce_percent))
+            ) {
+                if(!empty($product->reduce_price) && !is_null($product->reduce_price)){
+                    $price = $product->price_ttc - $product->reduce_price;
+                }else{
+                    $price = $product->price_ttc - ($product->price_ttc * (($product->reduce_percent/100)));
+                }
+            }
+        } else {
+            if($product->reduce_date_begin <= date('Y-m-d H:i:s') && $product->reduce_date_end > date('Y-m-d H:i:s')) {
+                if(
+                    (!empty($product->reduce_price) && !is_null($product->reduce_price)) ||
+                    (!empty($product->reduce_percent) && !is_null($product->reduce_percent))
+                ) {
+                    if(!empty($product->reduce_price) && !is_null($product->reduce_price)){
+                        $price = $product->price_ttc - $product->reduce_price;
+                    }else{
+                        $price = $product->price_ttc - ($product->price_ttc * (($product->reduce_percent/100)));
+                    }
+                }
             }
         }
         $addCart = [
