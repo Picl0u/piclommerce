@@ -14,7 +14,7 @@
 
     <div style="position:absolute; left:0pt; width:250pt;">
         <img class="img-rounded"
-             style="max-height:{{ config('ikCommerce.invoiceLogoHeight') }}"
+             style="max-height:{{ config('piclommerce.invoiceLogoHeight') }}"
              src="{{ asset(str_replace('\\', '/',setting('generals.LogoInvoice'))) }}"
         >
     </div>
