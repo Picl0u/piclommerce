@@ -82,15 +82,26 @@ class PaypalPayment implements PaymentInterface
             config('piclommerce.paypal.client_id'),
             config('piclommerce.paypal.secret')
         );
+        if(config('piclommerce.paypal.sandbox')) {
 
-        $this->apiContext->setConfig(array(
-            'mode' => 'sandbox',
-            'service.EndPoint' => 'https://api.sandbox.paypal.com',
-            'http.ConnectionTimeOut' => 30,
-            'log.LogEnabled' => true,
-            'log.FileName' => storage_path('logs/paypal.log'),
-            'log.LogLevel' => 'FINE'
-        ));
+            $this->apiContext->setConfig(array(
+                'mode' => 'sandbox',
+                'service.EndPoint' => 'https://api.sandbox.paypal.com',
+                'http.ConnectionTimeOut' => 30,
+                'log.LogEnabled' => true,
+                'log.FileName' => storage_path('logs/paypal.log'),
+                'log.LogLevel' => 'FINE'
+            ));
+        } else {
+            $this->apiContext->setConfig(array(
+                'mode' => 'live',
+                'service.EndPoint' => 'https://api.paypal.com',
+                'http.ConnectionTimeOut' => 30,
+                'log.LogEnabled' => true,
+                'log.FileName' => storage_path('logs/paypal.log'),
+                'log.LogLevel' => 'FINE'
+            ));
+        }
 
         return $this;
     }

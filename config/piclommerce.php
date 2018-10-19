@@ -46,7 +46,8 @@ return [
     // Paypal
     'paypal' => [
         'client_id' => '',
-        'secret' => ''
+        'secret' => '',
+        'sandbox' => true
     ],
 
 ];
