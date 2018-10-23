@@ -93,10 +93,11 @@ class LoginController extends Controller
             $user->assignRole('SuperAdmin');*/
             return redirect()->route('admin.dashboard');
         }
-
-        /*Shoppingcart::where("identifier", $user->uuid)->delete();*/
-        Cart::instance('shopping')->restore($user->uuid);
-        //aCart::instance('shopping')->store($user->uuid);
+        //Shoppingcart::where("identifier", $user->uuid)->delete();
+        if(Shoppingcart::where("identifier", $user->uuid)->first()){
+            Cart::instance('shopping')->restore($user->uuid);
+            //Cart::instance('shopping')->store($user->uuid);
+        }
         Cart::instance('whishlist')->restore($user->id);
         //Cart::instance('whishlist')->store($user->id);
         session(['custommers' => $user]);
