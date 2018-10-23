@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Piclou\Piclommerce\Http\Entities\Shoppingcart;
 
 class LoginController extends Controller
 {
@@ -93,10 +94,11 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
+        /*Shoppingcart::where("identifier", $user->uuid)->delete();*/
         Cart::instance('shopping')->restore($user->uuid);
-        Cart::instance('shopping')->store($user->uuid);
+        //aCart::instance('shopping')->store($user->uuid);
         Cart::instance('whishlist')->restore($user->id);
-        Cart::instance('whishlist')->store($user->id);
+        //Cart::instance('whishlist')->store($user->id);
         session(['custommers' => $user]);
     }
 }
