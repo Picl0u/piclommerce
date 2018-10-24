@@ -288,4 +288,41 @@ class SettingController extends Controller
         return redirect()->route($this->route. 'orders');
     }
 
+    public function payments()
+    {
+        $data = [
+            'paypalEnable' => Setting::get('paypal.enable'),
+            'paypalSandbox' => Setting::get('paypal.sandbox'),
+            'paypalClientId' => Setting::get('paypal.clientId'),
+            'paypalSecretKey' => Setting::get('paypal.secret'),
+            'stripeEnable' => Setting::get('stripe.enable'),
+            'stripePubKey' => Setting::get('stripe.pubKey'),
+            'stripesSecretKey' => Setting::get('stripe.secret'),
+        ];
+
+        return view($this->viewPath . 'payment', compact('data'));
+    }
+
+    public function storePayments(Request $request)
+    {
+        if(config('piclommerce.demo')) {
+            session()->flash('error',__("piclommerce::admin.demo_error"));
+            return redirect()->route($this->route . 'generals');
+        }
+
+        Setting::set('paypal.enable', ($request->paypalEnable)?1:0);
+        Setting::set('paypal.sandbox', ($request->paypalSandbox)?1:0);
+        Setting::set('paypal.clientId', $request->paypalClientId);
+        Setting::set('paypal.secret', $request->paypalSecretKey);
+
+        Setting::set('stripe.enable', ($request->stripeEnable)?1:0);
+        Setting::set('stripe.pubKey', $request->stripePubKey);
+        Setting::set('stripe.secret', $request->stripesSecretKey);
+
+        Setting::save();
+
+        session()->flash('success', __("piclommerce::admin.setting_success"));
+        return redirect()->route($this->route. 'payments');
+    }
+
 }

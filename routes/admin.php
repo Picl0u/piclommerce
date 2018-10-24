@@ -194,6 +194,9 @@ Route::group([
     // Settings - Orders
     Route::get('/settings/orders', 'SettingController@orders')->name("admin.settings.orders");
     Route::post('/settings/orders/store', 'SettingController@storeOrders')->name("admin.settings.orders.store");
+    // Settings - Orders
+    Route::get('/settings/payments', 'SettingController@payments')->name("admin.settings.payments");
+    Route::post('/settings/payments/store', 'SettingController@storePayments')->name("admin.settings.payments.store");
 
 });
 

@@ -36,6 +36,9 @@ use Ramsey\Uuid\Uuid;
 use \Session;
 use \Mail;
 use Artesaos\SEOTools\Facades\SEOMeta;
+use Stripe\Charge;
+use Stripe\Customer;
+use Stripe\Stripe;
 
 class ShoppingCartController extends Controller
 {
@@ -864,6 +867,158 @@ class ShoppingCartController extends Controller
         }
         Shoppingcart::where('identifier',$uuid)->update($storeCart);
         return redirect( $payment['redirect'] );
+    }
+
+    public function stripe(Request $request)
+    {
+        Stripe::setApiKey(config("piclommerce.stripe.secret_key"));
+        $token = $request->stripeToken;
+        $customer = Customer::create(array(
+            'email' => $request->stripeEmail,
+            'source' => $request->stripeToken
+        ));
+
+        $cart = Shoppingcart::where('identifier', Auth::user()->uuid)->first();
+        Cart::instance('shopping')->restore(Auth::user()->uuid);
+        $nbOrder = (Order::where('created_at', 'like', date('Y-m').'%')->count() + 1);
+        $refOrder = config('piclommerce.orderRef') .
+            str_pad($nbOrder, config('piclommerce.refCount'), 0, STR_PAD_LEFT);
+
+        $statut = Status::where('order_accept',1)->first();
+        $coupon = [];
+        $total = Cart::instance('shopping')->total(2,".","");
+        if($cart->coupon_id) {
+            $coupon = $this->checkCoupon($cart->coupon_id, $total);
+            $total = $coupon['reduce'];
+        }
+        $charge = Charge::create(array(
+            'customer' => $customer->id,
+            'amount' => ($total + $cart->shipping_price)*100,
+            'currency' => 'eur'
+        ));
+
+        $insertOrder = [
+            'token' => $token,
+            'reference' => $refOrder,
+            'status_id' => $statut->id,
+
+            'price_ht' => Cart::instance('shopping')->subtotal(2,".",""),
+            'vat_price' => Cart::instance('shopping')->tax(2,".",""),
+            'vat_percent' => config('cart.tax'),
+            'total_quantity' => Cart::instance('shopping')->count(),
+            'price_ttc' => $total + $cart->shipping_price,
+
+            'shipping_name' => $cart->shipping_name,
+            'shipping_delay' => $cart->shipping_delay,
+            'shipping_url' => $cart->shipping_url,
+            'shipping_price' => $cart->shipping_price,
+
+            'user_id' => $cart->user_id,
+            'user_firstname' => $cart->user_firstname,
+            'user_lastname' => $cart->user_lastname,
+            'user_email' => $cart->user_email,
+
+            'delivery_gender' => $cart->delivery_gender,
+            'delivery_firstname' => $cart->delivery_firstname,
+            'delivery_lastname' => $cart->delivery_lastname,
+            'delivery_address' => $cart->delivery_address,
+            'delivery_additional_address' => $cart->delivery_additional_address,
+            'delivery_zip_code' => $cart->delivery_zip_code,
+            'delivery_city' => $cart->delivery_city,
+            'delivery_country_id' => $cart->delivery_country_id,
+            'delivery_country_name' => $cart->delivery_country_name,
+            'delivery_phone' => $cart->delivery_phone,
+
+            'billing_gender' => $cart->billing_gender,
+            'billing_firstname' => $cart->billing_firstname,
+            'billing_lastname' => $cart->billing_lastname,
+            'billing_address' => $cart->billing_address,
+            'billing_additional_address' => $cart->billing_additional_address,
+            'billing_zip_code' => $cart->billing_zip_code,
+            'billing_city' => $cart->billing_city,
+            'billing_country_id' => $cart->billing_country_id,
+            'billing_country_name' => $cart->billing_country_name,
+            'billing_phone' => $cart->billing_phone,
+        ];
+        if(!empty($coupon)) {
+            $insertOrder['coupon_id'] = $cart->coupon_id;
+            $insertOrder['coupon_price'] = $coupon['reduceDiff'];
+            $insertOrder['coupon_name'] = $coupon['name'];
+        }
+        $order = Order::create($insertOrder);
+        OrdersStatus::create([
+            'status_id' => $statut->id,
+            'order_id' => $order->id
+        ]);
+
+        $productsOrder = [];
+        $productsUpdate = [];
+        $alertProduct = [];
+        foreach(Cart::instance('shopping')->content() as $key => $row){
+            $product = Product::where('id', $row->options->id)->first();
+            $productsOrder[$key] = [
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'ref' => $row->id ." / ".$row->options->ref,
+                'name' => $product->name,
+                'image' => $product->image,
+                'quantity' => $row->qty,
+                'price_ht' => $row->price,
+                'price_ttc' => $row->total
+            ];
+
+            // Alerte si stock à zéro ?
+            $calculStock = ($product->stock_brut - $row->qty);
+
+            $productsUpdate[$key] = [
+                'id' => $product->id,
+                'stock_brut' => ($product->stock_brut - $row->qty ),
+                'stock_available' => ($product->stock_brut - $row->qty ) - $product->stock_booked
+            ];
+            if(!empty(setting('orders.stockBooked'))){
+                $productsUpdate[$key] = [
+                    'stock_booked' => ($product->stock_booked - $row->qty )
+                ];
+            }
+            Product::where('id',$product->id)->update($productsUpdate[$key]);
+
+            if($calculStock <= setting('orders.productQuantityAlert')){
+                $alertProduct[$key] = [
+                    'id' => $product->id,
+                    'ref' => $row->id,
+                    'name' => $product->name,
+                    'quantity' => ($product->stock_brut - $row->qty ) - $product->stock_booked
+                ];
+            }
+
+        }
+        OrdersProducts::insert($productsOrder);
+
+        /* Génération du PDF */
+        $invoice = new Invoice($order);
+        $invoiceLink = $invoice->generate();
+
+        Mail::to($order->user_email)
+            ->send(new OrderCreated($order, $productsOrder, $invoiceLink));
+
+        Mail::to(setting('generals.orderEmail'))
+            ->send(new OrderCreated($order, $productsOrder, $invoiceLink));
+
+        if(!empty($alertProduct)) {
+            Mail::to(setting('generals.orderEmail'))
+                ->send(new ProductQuantityAlert($alertProduct));
+        }
+
+        /* Destruction du panier */
+        Cart::instance('shopping')->destroy();
+
+        /* Page paiement accepté */
+        $content = Content::select('id','slug')->where("id", setting('orders.acceptId'))->first();
+
+        return redirect()->route('content.index',[
+            'slug' => $content->slug,
+            'id' => $content->id
+        ]);
     }
 
     public function orderReturn(Request $request)

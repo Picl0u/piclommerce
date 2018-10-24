@@ -137,11 +137,42 @@
                         <a href="#cgv-modal">{{ $cgv->name }}</a>
                     </div>
                 @endif
-                <div class="payment-button">
-                    <a href="{{ route('cart.process') }}">
-                        {{ __('piclommerce::web.cart_pay_order') }}
-                    </a>
-                    <img src="/images/credit-card-icons-png.png" alt="Moyens de paiements">
+                
+                <div class="is-row">
+                    @if(setting("paypal.enable"))
+                        <div class="is-col">
+                            <div class="payment-button">
+                                <a href="{{ route('cart.process') }}">
+                                    {{ __('piclommerce::web.cart_pay_order') }}
+                                </a>
+                                <p>Paiement sécurisé avec Paypal</p>
+                                <img src="/images/credit-card-icons-png.png" alt="Moyens de paiements">
+                            </div>
+                        </div>
+                    @endif
+                    @if(setting("stripe.enable"))
+                        <div class="is-col">
+                            <div class="payment-button">
+                                <form method="post" action="{{ route("cart.process.stripe") }}">
+                                    {{ csrf_field() }}
+                                    <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ setting("stripe.pubKey") }}"
+                                            data-amount="{{ ($total + $shipping['price'])*100 }}"
+                                            data-name="{{ setting("generals.websiteName") }}"
+                                            data-description="{{ __('piclommerce::web.cart_pay_order') }}"
+                                            data-image="{{ asset(setting('generals.logo')) }}"
+                                            data-locale="{{ config("app.locale") }}"
+                                            data-label="{{ __('piclommerce::web.cart_pay_order') }}"
+                                            data-email="{{ Auth::user()->email }}"
+                                            data-currency="eur">
+                                    </script>
+                                </form>
+                                <p>Paiement sécurisé avec Stripe</p>
+                                <img src="/images/credit-card-icons-png.png" alt="Moyens de paiements">
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
             </div>

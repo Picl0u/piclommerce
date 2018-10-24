@@ -164,10 +164,10 @@
   .payment-button{
     padding:20px 0 0 0;
     text-align:center;
-    a {
+    a, button, span {
       display: inline-block;
       padding: 0 10px;
-      background-color: $theme_color;
+      background: $theme_color;
       color: #FFF;
       height: 40px;
       line-height: 40px;
@@ -182,7 +182,7 @@
         margin-right: 10px;
       }
     }
-    a:hover{
+    a:hover, button:hover, span:hover{
       opacity:0.8;
     }
     img{

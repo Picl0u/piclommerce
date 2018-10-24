@@ -43,11 +43,4 @@ return [
     // Share socials medias
     'shareWebsites' => ['facebook', 'twitter', 'pinterest', 'gplus'],
 
-    // Paypal
-    'paypal' => [
-        'client_id' => '',
-        'secret' => '',
-        'sandbox' => true
-    ],
-
 ];

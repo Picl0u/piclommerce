@@ -482,4 +482,13 @@ return [
     "setting_order_cgv" => "Page des CGV",
     "setting_order_accept" => "Page paiement accepté",
     "setting_order_refuse" => "Page paiement refusé",
+
+    // Setting - Payments
+    "paypal_enable" => "Activé paypal",
+    "paypal_sandbox" => "Paiement pour tester ?",
+    "paypal_client_id" => "Clé : ID CLIENT",
+    "paypal_secret" => "Clé secrète",
+    "stripe_enable" => "Activé stripe",
+    "stripe_pubKey" => "Clé publique (Publishable key)",
+    "stripe_secrete" => "Clé secrète (Secret key)",
 ];

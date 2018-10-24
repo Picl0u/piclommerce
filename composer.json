@@ -31,6 +31,7 @@
         "monext/payline-sdk": "^4.53",
         "payline/sdk": "^4.45",
         "spatie/laravel-permission": "^2.9",
+        "stripe/stripe-php": "^6.19",
         "webpatser/laravel-countries": "^1.5.4",
         "webpatser/laravel-uuid": "^3.0",
         "yajra/laravel-datatables-oracle": "~8.0",

@@ -120,6 +120,9 @@ Route::group([
 
         /* Process */
         Route::get('process', 'ShoppingCartController@process')->name('cart.process');
+
+        /* Process */
+        Route::post('stripe', 'ShoppingCartController@stripe')->name('cart.process.stripe');
     });
 });
 

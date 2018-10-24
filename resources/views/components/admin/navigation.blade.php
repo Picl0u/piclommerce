@@ -153,6 +153,12 @@
         {{ __('piclommerce::admin.navigation_configure') }}
     </li>
     <li>
+        <a href="{{ route("admin.settings.slider") }}">
+            <i class="fa fa-cog"></i>
+            {{ __('piclommerce::admin.navigation_slider') }}
+        </a>
+    </li>
+    <li>
         <a href="{{ route("admin.settings.orders") }}">
             <i class="fa fa-cog"></i>
             {{ __('piclommerce::admin.navigation_orders') }}
