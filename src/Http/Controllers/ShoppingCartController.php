@@ -925,7 +925,7 @@ class ShoppingCartController extends Controller
 
     public function stripe(Request $request)
     {
-        Stripe::setApiKey(config("piclommerce.stripe.secret_key"));
+        Stripe::setApiKey(setting("stripe.secret"));
         $token = $request->stripeToken;
         $customer = Customer::create(array(
             'email' => $request->stripeEmail,
