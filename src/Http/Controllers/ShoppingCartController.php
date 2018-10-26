@@ -764,6 +764,7 @@ class ShoppingCartController extends Controller
             session()->flash('error',__("piclommerce:web.cart_varrier_select"));
             return redirect()->route('cart.user.shipping');
         }
+        Cart::instance('shopping')->restore(Auth::user()->uuid);
         $coupon = [];
         $total = Cart::instance('shopping')->total(2,".","");
         if (session()->get('coupons') ){
@@ -773,7 +774,7 @@ class ShoppingCartController extends Controller
             }
         }
         $cgv = "";
-            if(!empty(setting('orders.cgvId'))){
+        if(!empty(setting('orders.cgvId'))){
             $cgv = Content::where('id', setting('orders.cgvId'))->first();
         }
 
@@ -784,6 +785,59 @@ class ShoppingCartController extends Controller
 
         session(['cartAddresses' => $address]);
 
+        $user = session('custommers');
+        $address = session()->get('cartAddresses');
+        $shipping = session()->get('cartShipping');
+
+        $coupon = [];
+        $total = Cart::instance('shopping')->total(2,".","");
+        if (session()->get('coupons') ){
+            $coupon = $this->checkCoupon(session()->get('coupons')['coupon_id'], $total);
+            $total = $coupon['reduce'];
+        }
+        $transport = Carriers::select('name','delay','url')->where('id', $shipping['id'])->first();
+        $totalOrder = $total + $shipping['price'];
+        Cart::instance('shopping')->store($user->uuid);
+        $storeCart = [
+            'shipping_name' => $transport->name,
+            'shipping_delay' => $transport->delay,
+            'shipping_url' => $transport->url,
+            'shipping_price' => $shipping['price'],
+
+            'user_id' => $user->id,
+            'user_firstname' => $user['firstname'],
+            'user_lastname' => $user['lastname'],
+            'user_email' => $user['email'],
+
+            'delivery_gender' => $address['delivery']['gender'],
+            'delivery_firstname' => $address['delivery']['firstname'],
+            'delivery_lastname' => $address['delivery']['lastname'],
+            'delivery_address' => $address['delivery']['address'],
+            'delivery_additional_address' => $address['delivery']['additional_address'],
+            'delivery_zip_code' => $address['delivery']['zip_code'],
+            'delivery_city' => $address['delivery']['city'],
+            'delivery_country_id' => $address['delivery']['country_id'],
+            'delivery_country_name' => $address['delivery']['country_name'],
+            'delivery_phone' => $address['delivery']['phone'],
+
+            'billing_gender' => $address['billing']['gender'],
+            'billing_firstname' => $address['billing']['firstname'],
+            'billing_lastname' => $address['billing']['lastname'],
+            'billing_address' => $address['billing']['address'],
+            'billing_additional_address' => $address['billing']['additional_address'],
+            'billing_zip_code' => $address['billing']['zip_code'],
+            'billing_city' => $address['billing']['city'],
+            'billing_country_id' => $address['billing']['country_id'],
+            'billing_country_name' => $address['billing']['country_name'],
+            'billing_phone' => $address['billing']['phone'],
+
+            'updated_at' => now(),
+            'created_at' => now(),
+        ];
+        if(!empty($coupon)) {
+            $storeCart['coupon_id'] = session()->get('coupons')['coupon_id'];
+        }
+        Shoppingcart::where('identifier',$user->uuid)->update($storeCart);
         SEOMeta::setTitle(__("piclommerce::web.cart_recap") . " - " . setting("generals.seoTitle"));
         SEOMeta::setDescription(__("piclommerce::web.cart_recap") . " - " . setting("generals.seoDescription"));
 

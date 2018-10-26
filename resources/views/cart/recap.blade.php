@@ -137,7 +137,7 @@
                         <a href="#cgv-modal">{{ $cgv->name }}</a>
                     </div>
                 @endif
-                
+
                 <div class="is-row">
                     @if(setting("paypal.enable"))
                         <div class="is-col">
